@@ -6,9 +6,9 @@ import AddJob from './components/addJob.vue';
 
 const routes = [
     { path: '/', component: HomeView },
-    { path: '/job-details/:id', component: JobDetails, props: true },
-    { path: '/edit-job/:id', component: EditJob, props: true },
-    { path: '/add-job', component: AddJob },
+    { path: '/jobDetails/:id', component: JobDetails, props: true },
+    { path: '/editJob/:id', component: EditJob, props: true },
+    { path: '/addJob', component: AddJob },
 ];
 
 const router = createRouter({

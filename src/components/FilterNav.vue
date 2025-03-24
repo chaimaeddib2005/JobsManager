@@ -14,7 +14,7 @@ export default {
     },
     async mounted() {
         try {
-            const response = await fetch('http://localhost:3000/jobs');
+            const response = await fetch('http://localhost:3002/jobs');
             this.jobs = await response.json();
             this.$emit('filter-jobs', this.jobs); // Send initial jobs
         } catch (error) {

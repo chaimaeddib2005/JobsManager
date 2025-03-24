@@ -1,13 +1,24 @@
 <template>
     <div>
-        <FilterNav @filter-jobs="updateFilteredJobs" />
-        <div v-for="job in filteredJobs" :key="job.id">
-            <h1>{{ job.title }}</h1>
+    <div style="text-align: center; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background-color: pink;margin: 2vw;padding: 1vw;">
+        
+        <div>
+            <FilterNav @filter-jobs="updateFilteredJobs" />
+        </div>
+        <div>
+            <router-link to="/addJob">Ajouter un emploi</router-link>
+        </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+        <div v-for="job in filteredJobs" :key="job.id" style="border: 2px solid blue;padding: 1vw;" >
+            <h1>{{ job.titre }}</h1>
             <p>{{ job.description }}</p>
             <p>{{ job.salaire }}</p>
             <p>{{ job.creation }}</p>
-            <router-link :to="'/jobDetails/' + job.id">Details</router-link>
+            <router-link :to="`/jobDetails/${job.id}`" style="float:right">Details</router-link>
+
         </div>
+    </div>
     </div>
 </template>
 
@@ -28,7 +39,7 @@ export default {
     },
     async mounted() {
         try {
-            const response = await fetch("http://localhost:3000/jobs");
+            const response = await fetch("http://localhost:3002/jobs");
             this.jobs = await response.json();
             this.filteredJobs = this.jobs; // Initialize filtered jobs
         } catch (error) {

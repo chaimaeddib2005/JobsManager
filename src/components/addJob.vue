@@ -3,7 +3,7 @@
         <fieldset>
             <legend>Ajouter un emploi</legend>
             <label>Job title</label>
-            <input v-model="title" type="text" required>
+            <input v-model="titre" type="text" required>
             <br>
             <label>Job Description</label>
             <textarea v-model="description" required></textarea>
@@ -22,7 +22,7 @@
 export default{
     data(){
         return{
-            title: '',
+            titre: '',
             description: '',
             salaire: '',
             creation: ''
@@ -31,13 +31,14 @@ export default{
     methods:{
         async addJob(){
             const newJob = {
-                title: this.title,
+                id : Date.now(),
+                titre: this.titre,
                 description: this.description,
                 salaire: Number(this.salaire),
                 creation: this.creation
             }
             try{
-                const response = await fetch("http://localhost:3000/jobs", {
+                const response = await fetch(`http://localhost:3002/jobs`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

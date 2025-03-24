@@ -1,11 +1,11 @@
 <template>
-    <fieldset>
-        <legend>Modifier un emploi</legend>
+    <fieldset style="width: 100%;align-items: center;display: flex;flex-direction: column;">
+        <legend style="font-weight:bold;color:red;text-decoration:underline;">Modifier un emploi</legend>
         <label>Job title</label>
-        <input v-model="title" type="text">
+        <input v-model="titre" type="text">
         <br>
         <label>Job Description</label>
-        <textarea v-model="description"></textarea>
+        <textarea v-model="description" style="width:90%;height:4vw"></textarea>
         <br>
         <label>Salaire</label>
         <input v-model="salaire" type="number">
@@ -13,14 +13,14 @@
         <label>Date de création</label>
         <input v-model="creation" type="date">
         <br>
-        <button @click="editJob">Modifier</button>
+        <button @click="editJob" style="background-color:green;width:30%;height:3vw">Modifier</button>
     </fieldset>
 </template>
 <script>
 export default{
     data(){
         return{
-            title: '',
+            titre: '',
             description: '',
             salaire: '',
             creation: ''
@@ -29,10 +29,11 @@ export default{
     async mounted(){
         const jobId = this.$route.params.id
         try{
-            const response = await fetch("http://localhost:3000/jobs")
+            const response = await fetch(`http://localhost:3002/jobs/${jobId}`)
             const jobs = await response.json()
             const job = jobs.find(job => job.id == jobId)
-            this.title = job.title
+            this.id = job.id
+            this.titre = job.titre
             this.description = job.description
             this.salaire = job.salaire
             this.creation = job.creation
@@ -51,7 +52,7 @@ export default{
                 creation: this.creation
             }
             try{
-                const response = await fetch('http://localhost:3000/jobs/:id', {
+                const response = await fetch(`http://localhost:3002/jobs/${jobId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
